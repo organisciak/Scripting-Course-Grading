@@ -94,25 +94,31 @@ key = dict(
     q2 = dict(entrytype='var', pts=5, auto=False),
     q3 = dict(entrytype='cell', pts=5, auto=True, answers=L1_Q3_Answers),
     q4a = dict(entrytype='var', pts=5, auto=True,
-               answers=["sex == 'M' AND height > 100"],
+               answers=["sex == 'M' AND repht > 100"],
                filters=['sql_where_clean']
               ),
     q4b = dict(entrytype='var', pts=5, auto=True,
-               answers=['height > repht', 'repht < height'],
+               answers=['height < repht', 'repht > height'],
                filters=['sql_where_clean']
               ),
     q4c = dict(entrytype='var', pts=10, auto=True,
-               answers=['sex == "F" AND height < repht', 'sex == "F" AND repht > height'],
+               answers=['sex == "F" AND height < repht AND weight < repwt', 
+                        'sex == "F" AND repht > height AND weight < repwt', 
+                        'sex == "F" AND height < repht AND repwt > weight', 
+                        'sex == "F" AND repht > height AND repwt > weight'],
                filters=['sql_where_clean']
               ),
     q5 = dict(entrytype='var', pts=5, auto=False),
     q6 = dict(entrytype='cell', pts=5, auto=False),
     q7 = dict(entrytype='cell', pts=5, auto=True, answers=L1_Q7_Answers),
-    q8a = dict(entrytype='var', pts=4, auto=True, answers=['True']),
+    # TODO 8a question is confusing because of the space
+    q8a = dict(entrytype='var', pts=4, auto=True, answers=['False']),
     q8b = dict(entrytype='var', pts=4, auto=True, answers=['True']),
     q8c = dict(entrytype='var', pts=4, auto=True, answers=['True']),
+    # TODO clarify language of 'equivalence'
     q9a = dict(entrytype='var', pts=4, auto=True, answers=['No']),
     q9b = dict(entrytype='var', pts=4, auto=True, answers=['Yes']),
+    # TODO future iteration, lower pts here, add them to q7 instead
     q10 = dict(entrytype='var', pts=8, auto=False),
     q11 = dict(entrytype='var', pts=7, auto=True, answers=['False']),
     q12 = dict(entrytype='var', pts=5, auto=True, answers=[
