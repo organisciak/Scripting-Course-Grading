@@ -1,15 +1,15 @@
 from scripting_grading.grading import Answer
 
-class L1_Q1_Answers(Answer):
+class L2_Q1_Answers(Answer):
     
-    def prep():
+    def prep(self):
         get_ipython().run_line_magic('reload_ext', 'sql')
         get_ipython().run_line_magic('sql', 'sqlite://')
         get_ipython().run_line_magic('sql', 'DROP TABLE IF EXISTS worker_wages')
         get_ipython().run_line_magic('sql', 'CREATE TABLE worker_wages (role, num_workers, wage);')
         get_ipython().run_line_magic('sql', 'INSERT INTO worker_wages ("test", 12, 34);')
         
-    def check(ns=None):
+    def check(self, ns=None):
         pts, errs = None, None
         sqlresults = get_ipython().run_line_magic('sql', 'SELECT * FROM worker_wages')
         df = sqlresults.DataFrame()
@@ -33,11 +33,11 @@ class L1_Q1_Answers(Answer):
         return pts, errs
     
 
-class L1_Q3_Answers(Answer):
-    def prep():
+class L2_Q3_Answers(Answer):
+    def prep(self):
         get_ipython().run_line_magic('sql', 'DROP TABLE IF EXISTS heights')
         
-    def check(ns=None):
+    def check(self, ns=None):
         pts, errs = None, None
         sqlresults = get_ipython().run_line_magic('sql', 'PRAGMA table_info(heights)')
         df = sqlresults.DataFrame()[['name', 'type']].sort_values('name')
@@ -54,8 +54,8 @@ class L1_Q3_Answers(Answer):
             errs += "\nYour table created\n{}".format(df.to_string())
         return pts, errs
     
-class L1_Q7_Answers(Answer):
-    def check(ns=None):
+class L2_Q7_Answers(Answer):
+    def check(self, ns=None):
         x = ns.x
         if x == 0:
             pts = 0
@@ -74,8 +74,8 @@ class L1_Q7_Answers(Answer):
             err = ""
         return pts, err
     
-class L1_Q13_Answers(Answer):
-    def check(ns=None):
+class L2_Q13_Answers(Answer):
+    def check(self, ns=None):
         pts, err = None, None
         ans = ns.q13_resolved
 
@@ -90,9 +90,9 @@ class L1_Q13_Answers(Answer):
         return pts, err
     
 key = dict(
-    q1 = dict(entrytype='cell', pts=5, auto=True, answers=L1_Q1_Answers),
+    q1 = dict(entrytype='cell', pts=5, auto=True, answers=L2_Q1_Answers),
     q2 = dict(entrytype='var', pts=5, auto=False),
-    q3 = dict(entrytype='cell', pts=5, auto=True, answers=L1_Q3_Answers),
+    q3 = dict(entrytype='cell', pts=5, auto=True, answers=L2_Q3_Answers),
     q4a = dict(entrytype='var', pts=5, auto=True,
                answers=["sex == 'M' AND repht > 100"],
                filters=['sql_where_clean']
@@ -110,9 +110,10 @@ key = dict(
               ),
     q5 = dict(entrytype='var', pts=5, auto=False),
     q6 = dict(entrytype='cell', pts=5, auto=False),
-    q7 = dict(entrytype='cell', pts=5, auto=True, answers=L1_Q7_Answers),
-    # TODO 8a question is confusing because of the space
-    q8a = dict(entrytype='var', pts=4, auto=True, answers=['False']),
+    q7 = dict(entrytype='cell', pts=5, auto=True, answers=L2_Q7_Answers),
+    # TODO future iteration - 8a question is confusing because of the space
+    # For now allowing both answer
+    q8a = dict(entrytype='var', pts=4, auto=True, answers=['False', 'True']),
     q8b = dict(entrytype='var', pts=4, auto=True, answers=['True']),
     q8c = dict(entrytype='var', pts=4, auto=True, answers=['True']),
     # TODO clarify language of 'equivalence'
@@ -120,9 +121,10 @@ key = dict(
     q9b = dict(entrytype='var', pts=4, auto=True, answers=['Yes']),
     # TODO future iteration, lower pts here, add them to q7 instead
     q10 = dict(entrytype='var', pts=8, auto=False),
+    # TODO future iteration, lower pts here
     q11 = dict(entrytype='var', pts=7, auto=True, answers=['False']),
     q12 = dict(entrytype='var', pts=5, auto=True, answers=[
         "all characters in S are alphabetic and there is at least one character in S"
     ]),
-    q13 = dict(entrytype='cell', pts=10, auto=True, answers=L1_Q13_Answers),
+    q13 = dict(entrytype='cell', pts=10, auto=True, answers=L2_Q13_Answers),
 )
