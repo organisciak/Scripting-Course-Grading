@@ -26,13 +26,13 @@ class L4_Q7_Answers(Series2DataFrame_Answer):
         return pts, comments
 
 class L4_Q8_Answers(DataFrame_Answer):
-    output = {'manufacturer': {6: 'audi', 7: 'audi', 8: 'audi', 9: 'audi', 10: 'audi'}, 'model': {6: 'a4', 7: 'a4', 8: 'a4 quattro', 9: 'a4 quattro', 10: 'a4 quattro'}, 'displ': {6: 2.8, 7: 3.1, 8: 1.8, 9: 1.8, 10: 2.0}, 'year': {6: 1999, 7: 2008, 8: 1999, 9: 1999, 10: 2008}, 'cyl': {6: 6, 7: 6, 8: 4, 9: 4, 10: 4}, 'trans': {6: 'manual(m5)', 7: 'auto(av)', 8: 'manual(m5)', 9: 'auto(l5)', 10: 'manual(m6)'}, 'drv': {6: 'f', 7: 'f', 8: '4', 9: '4', 10: '4'}, 'cty': {6: 18, 7: 18, 8: 18, 9: 16, 10: 20}, 'hwy': {6: 26, 7: 27, 8: 26, 9: 25, 10: 28}, 'fl': {6: 'p', 7: 'p', 8: 'p', 9: 'p', 10: 'p'}, 'class': {6: 'compact', 7: 'compact', 8: 'compact', 9: 'compact', 10: 'compact'}}
+    output = {'index': [5, 6, 7, 8, 9], 'columns': ['manufacturer', 'model', 'displ', 'year', 'cyl', 'trans', 'drv', 'cty', 'hwy', 'fl', 'class'], 'data': [['audi', 'a4', 2.8, 1999, 6, 'manual(m5)', 'f', 18, 26, 'p', 'compact'], ['audi', 'a4', 3.1, 2008, 6, 'auto(av)', 'f', 18, 27, 'p', 'compact'], ['audi', 'a4 quattro', 1.8, 1999, 4, 'manual(m5)', '4', 18, 26, 'p', 'compact'], ['audi', 'a4 quattro', 1.8, 1999, 4, 'auto(l5)', '4', 16, 25, 'p', 'compact'], ['audi', 'a4 quattro', 2.0, 2008, 4, 'manual(m6)', '4', 20, 28, 'p', 'compact']]}
 
 class L4_Q9_Answers(DataFrame_Answer):
     shape = ((41, 11), "max")
 
 class L4_Q10_Answers(DataFrame_Answer):
-    output = {'manufacturer': {16: 'audi'}, 'model': {16: 'a6 quattro'}, 'displ': {16: 2.8}, 'year': {16: 1999}, 'cyl': {16: 6}, 'trans': {16: 'auto(l5)'}, 'drv': {16: '4'}, 'cty': {16: 15}, 'hwy': {16: 24}, 'fl': {16: 'p'}, 'class': {16: 'midsize'}}
+    output = {'index': [15], 'columns': ['manufacturer', 'model', 'displ', 'year', 'cyl', 'trans', 'drv', 'cty', 'hwy', 'fl', 'class'], 'data': [['audi', 'a6 quattro', 2.8, 1999, 6, 'auto(l5)', '4', 15, 24, 'p', 'midsize']]}
 
 class L4_Q12_Answers(DataFrame_Answer):
     hash = 'dc1020ed5bf46560105b74efceea80e0'
