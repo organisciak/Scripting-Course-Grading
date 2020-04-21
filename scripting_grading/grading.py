@@ -8,6 +8,8 @@ import types
 import time
 import re
 import pandas as pd
+import logging
+import hashlib
 
 class LabNotebook():    
     def __init__(self, path):
@@ -38,8 +40,11 @@ class LabNotebook():
                 matches = re.findall('Answer-(Q[\d\w]+)', cell.source, flags=re.IGNORECASE)
                 if len(matches) > 0:
                     q= matches[0].lower()
-                    assert len(matches) == 1
-                    assert q not in code_answers
+                    try:
+                        assert len(matches) == 1
+                        assert q not in code_answers
+                    except:
+                        logging.warn("{} cell shows up more that once".format(q))
                     code_answers[q] = self.strip_comments(cell.source)
             self._code_answers = code_answers
         return self._code_answers
@@ -325,7 +330,25 @@ class Answer():
         pass
     
     def check(self, ns=None):
-        pass
+        ans = self.get_resolved(self.q, ns)
+        pts, comments = 0, ""
+        # Basic comparison
+        if hasattr(self, 'val_answers') and self.val_answers:
+            if type(self.val_answers) is not list:
+                self.val_answers = [self.val_answers]
+            for val_answer in self.val_answers:
+                if type(val_answer) is tuple and len(val_answer) == 2:
+                    val_answer, possible_pts = val_answer
+                elif type(val_answer) is tuple and len(val_answer) == 3:
+                    val_answer, possible_pts, possible_comments = val_answer
+                else:
+                    possible_pts, possible_comments = "max", ""
+                    
+                if val_answer == ans:
+                    pts, comments = possible_pts, possible_comments
+                    break
+                
+        return pts, comments
     
     def compare_dfs(self, submitted, real):
         if submitted.shape[0] != real.shape[0]:
@@ -361,8 +384,18 @@ class DataFrame_Answer(Answer):
         return self._check_df(ans)
         
     def _check_df(self, ans):
+        if hasattr(self, 'hash') and self.hash:
+            import hashlib
+            ans_hash = hashlib.md5(ans.to_json().encode()).hexdigest()
+            if self.hash == ans_hash:
+                pts = "max"
+                err = ""
+            else:
+                pts = 0
+                err = "hash mismatch"
+            
         if hasattr(self, 'output') and self.output:
-            key_df = pd.DataFrame(self.output)
+            key_df = self._parse_output()
             pts, err = self.compare_dfs(ans, key_df)
             return pts, err
         
@@ -376,6 +409,20 @@ class DataFrame_Answer(Answer):
                         break
                 
         return pts, err
+    
+    def _parse_output(self):
+        if list(self.output.keys()) == ['index', 'columns', 'data']:
+            ''' This style was saved with df.to_dict(orient='split'), and is the 
+            least lossy.
+            '''
+            df = pd.DataFrame(**self.output)
+        else:
+            df = pd.DataFrame(self.output)
+        return df
+    
+    def show_output(self):
+        if self.output:
+            return self._parse_output()
                 
     def compare_shapes(self, ans, expected_shape, pts="max", comment=None):
         l, w = expected_shape
@@ -390,10 +437,20 @@ class DataFrame_Answer(Answer):
         return pts, comment
     
 class SQL2DataFrame_Answer(DataFrame_Answer):
-    # output var needs to be set in a subclass!
     def check(self, ns=None):
         ans = self.get_resolved(self.q, ns).DataFrame()
         return self._check_df(ans)
+    
+class Series2DataFrame_Answer(DataFrame_Answer):
+    def check(self, ns=None):
+        ans = self.get_resolved(self.q, ns).to_frame()
+        return self._check_df(ans)
+    
+    def show_output(self):
+        if self.output:
+            out = self._parse_output().iloc[:, 0]
+            out.name = None
+            return out
 
 def print_grade_report(grades, name=None):
     if name:

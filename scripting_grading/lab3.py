@@ -23,7 +23,7 @@ class L3_Q9_Answers(SQL2DataFrame_Answer):
     output = {'id': [91, 100, 183, 186, 204, 339, 500, 699], 'name': ['Jaime Taylor', 'Linda Taylor', 'Donald Taylor', 'Adam Taylor', 'Jesse Taylor MD', 'Sandra Tapia', 'Oscar Taylor', 'Laura Taylor'], 'age': [15, 46, 12, 56, 18, 74, 28, 30], 'email': ['lindsey20@gmail.com', 'garzacindy@reyes.org', 'robinsonfrances@ingram-mcintosh.com', 'richardbrewer@robinson.net', 'kpark@peterson.com', 'mark60@mitchell.com', 'cohenangel@delgado.com', 'wendy47@hotmail.com'], 'zipcode': ['94872', '97791', '90822', '81151', '36035', '27624', '49997', '78209'], 'city': ['Deborahbury', 'Port Stephanie', 'Lake Marissa', 'Brianchester', 'Rothton', 'Romerofort', 'Lake Marissa', 'Romerofort'], 'activity': [6, 7, 8, 2, 8, 3, 9, 7]}
     
 class L3_Q8_Answers(SQL2DataFrame_Answer):
-    shape = (49, None)
+    shape = ((49, None), "max")
 
 class L3_Q14_Answers(DataFrame_Answer):
     shape = [((97, 3), "max", ""), ((97, None), -3, "Try sep='\t' to split into multiple columns, based on tab spacing")]
@@ -85,7 +85,7 @@ key = dict(
     # TODO future - name the variable q14_answers, not 'data', like the other questions
     q14 = dict(entrytype='cell', pts=7, auto=True,  answers=L3_Q14_Answers,
                question="Write the code to read_csv..."),
-    q15 = dict(entrytype='cell', pts=4, auto=False, answers=L3_Q15_Answers,
+    q15 = dict(entrytype='cell', pts=4, auto=False,
                question="What's the code for getting the means of all the columns for data?"),
     q16 = dict(entrytype='var', pts=4, auto=False, question="What does this code do: data[:5]"),
     q17 = dict(entrytype='var', pts=4, auto=False, question="What does this code do: data[['Sex', 'Bwt']]"),
