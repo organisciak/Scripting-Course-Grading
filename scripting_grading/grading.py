@@ -382,11 +382,14 @@ class DataFrame_Answer(Answer):
     def check(self, ns=None):
         ans = self.get_resolved(self.q, ns)
         return self._check_df(ans)
-        
+    
+    def _df_to_hash(self, df):
+        import hashlib
+        return hashlib.md5(df.to_json().encode()).hexdigest()
+    
     def _check_df(self, ans):
         if hasattr(self, 'hash') and self.hash:
-            import hashlib
-            ans_hash = hashlib.md5(ans.to_json().encode()).hexdigest()
+            ans_hash = self._df_to_hash(ans)
             if self.hash == ans_hash:
                 pts = "max"
                 err = ""
