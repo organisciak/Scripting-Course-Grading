@@ -98,7 +98,10 @@ class LabNotebook():
         if not hasattr(self.mod, qname):
             err = "Can't find the answer"
         
-        ans = getattr(self.mod, qname)
+        try:
+            ans = getattr(self.mod, qname)
+        except:
+            return None, "Can't find answer"
         if type(ans) is str:
             ans = ans.strip()
             if ans == "":
@@ -134,13 +137,15 @@ class LabNotebook():
         if question_text:
             print("Q:", question_text, "\n--")
         print(ans)
+        
         while True:
             time.sleep(.5)
             msg = "How many points, out of {}? (default is {}, can subtract from max with -x)".format(max_pts, "max" if last_pts is None else last_pts)
             pts = input(msg)
+            print(pts)
             if pts.strip() == "":
-                pts = "max" if not last_pts else last_pts
-            if pts in ["max"] or pts.strip('-').replace('.','').isdigit():
+                pts = "max" if last_pts is None else last_pts
+            if pts in ["max"] or str(pts).strip('-').replace('.','').isdigit():
                 break
             else:
                 time.sleep(1)
@@ -215,6 +220,7 @@ class LabNotebook():
             ans, err = self.get_var_answer(q)
         if err:
             grade['comments'] += err
+            grade['pts'] = 0
             return grade
         
         if prev_grade:
@@ -231,16 +237,16 @@ class LabNotebook():
                                                           params['answers'], 
                                                           filters=filters)
             except:
-                if debug:
-                    raise
+                #if debug:
+                #    raise
                 pts = 0
                 comments = ""
         elif params['auto'] & (params['entrytype'] == 'cell'):
             try:
                 pts, comments = self.autograde_cell_answer(q, ans, params['answers'])
             except:
-                if debug:
-                    raise
+                #if debug:
+                #    raise
                 pts = 0
                 comments = ""
         elif not params['auto']:
