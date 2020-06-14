@@ -39,7 +39,7 @@ class L5_Q15_Answer(DataFrame_Answer):
     shape = [((213, None), "max"), ((214, None), -2, "Set the header with  header=0, as in the slides.")]
 
 class L5_Q16_Answer(DataFrame_Answer): 
-    shape = [((15023, 6), "max"), ((15023, None), -2, "Wrong number of columns")]
+    shape = [((15023, None), "max")]
     
 key = dict(
     q1 = dict(entrytype='cell', pts=3, auto=True,

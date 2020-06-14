@@ -40,8 +40,12 @@ class L2_Q3_Answers(Answer):
     def check(self, ns=None):
         pts, errs = None, None
         sqlresults = get_ipython().run_line_magic('sql', 'PRAGMA table_info(heights)')
-        df = sqlresults.DataFrame()[['name', 'type']].sort_values('name')
-        
+        df = sqlresults.DataFrame().sort_values('name')
+        try:
+            df = df[['name', 'type']]
+        except:
+            print(df)
+            
         headers = ['height', 'repht', 'repwt', 'sex', 'weight']
         types = ['INTEGER', 'INTEGER', 'INTEGER', 'TEXT', 'INTEGER']
         count = (df['name'] == headers).sum()
