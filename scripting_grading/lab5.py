@@ -83,7 +83,7 @@ key = dict(
                question="How many songs by Carl Perkins did the Beatles record?"),
     q15c = dict(entrytype='var', pts=3, auto=True, answers=[1966],
                question="What was the median recording year?"),
-    q15d = dict(entrytype='var', pts=3, auto=True, answers=['Starkey'],
+    q15d = dict(entrytype='var', pts=4, auto=True, answers=['Starkey'],
                question="Which Beatle has the latest mean songwriting year?"),
     q16 = dict(entrytype='cell', pts=12, auto=True, answers=L5_Q16_Answer,
                question="Write the code to select all ratings by the 10 most prolific users."),
