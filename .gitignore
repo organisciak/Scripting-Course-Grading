@@ -2,3 +2,5 @@ __pycache__
 *.egg-info
 grading-notebook.ipynb
 labs
+.ipynb_checkpoints
+week1.db
