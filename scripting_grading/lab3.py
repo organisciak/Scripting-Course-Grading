@@ -43,8 +43,8 @@ key = dict(
     q3 = dict(entrytype='cell', pts=4, auto=True, answers=L3_Q3_Answers,
               question="Write the SQL to select any patrons that are 8 years old and have the zip code 49044."),
     q4 = dict(entrytype='var', pts=4, auto=True, 
-              answers=[(1977, "max", ""), (250, -1, "sort by return_time"),
-                       (122, -1, "sort DESC, not ASC")],
+              answers=[(1977, "max", ""), (250, -2, "sort by return_time"),
+                       (122, -1, "sort DESC, not ASC"), (1898, -2, "sort by return_time")],
               question="What is the id of the most recently returned book listed in the circulation table?"),
     q5 = dict(entrytype='var', pts=4, auto=True, answers=[11], question="How many records are listed in books with George Orwell as the author?"),
     q6a = dict(entrytype='var', pts=4, auto=True,
@@ -80,7 +80,7 @@ key = dict(
     # Technically not possible (nothing said about deleted comments still existing in the system)
     # But easy to make mistake
     q13c = dict(entrytype='var', pts=4, auto=True, answers=[("Not possible.", "max"),
-                  ("INNER JOIN", -1, "Nothing to suggest that deleted comments can be retrieved, but if they could, this would work."), ("LEFT OUTER JOIN", -2, "Nothing to suggest that deleted comments can be retrieved. If they could, no need to return the user-less comments for this question, although it would still (inefficiently) work."), ("FULL OUTER JOIN", -2, "Nothing to suggest that deleted comments can be retrieved. If they could, no need to return the user-less comments for this question, although it would still (inefficiently) work.")],
+                  ("INNER JOIN", -1, "Not possible. Nothing to suggest that deleted comments can be retrieved, but if they could, this would work."), ("LEFT OUTER JOIN", -2, "Not possible. Nothing to suggest that deleted comments can be retrieved. If they could, no need to return the user-less comments for this question, although it would still (inefficiently) work."), ("FULL OUTER JOIN", -2, "Not possible. Nothing to suggest that deleted comments can be retrieved. If they could, no need to return the user-less comments for this question, although it would still (inefficiently) work.")],
                 question="What type of JOIN is necessary to retrieve all the active and deleted comments by a user?"),
     # TODO future - name the variable q14_answers, not 'data', like the other questions
     q14 = dict(entrytype='cell', pts=7, auto=True,  answers=L3_Q14_Answers,
