@@ -103,7 +103,7 @@ class LabNotebook():
         except:
             return None, "Can't find answer"
         if type(ans) is str:
-            ans = ans.strip()
+            #ans = ans.strip()
             if ans == "":
                 err = "Answer is empty."
         
@@ -136,7 +136,7 @@ class LabNotebook():
         print(q.center(100, '-'))
         if question_text:
             print("Q:", question_text, "\n--")
-        print(ans)
+        print(f'```{ans}```')
         
         while True:
             time.sleep(.5)
@@ -283,7 +283,7 @@ class LabNotebook():
         grades = dict()
         try:
             for q, params in answerkey.items():
-                grade = self.grade_answer(q, params, debug=debug)   
+                grade = self.grade_answer(q, params, debug=debug) 
                 grades[q] = grade
 
             if hand_regrade and not debug:
